@@ -112,6 +112,7 @@ def main():
     #L2 is better- ridge is better
     # for sonar dataset optimum lambda 1
     # for breast cancer dataset it is 2.8
+    # we tried plugging in different lambda values and tried observing their effects
     # plt.figure(figsize=(8, 6))
     # plt.plot(lambda_values, acc*len(lambda_values),label="w/o regularisation")
     # plt.plot(lambda_values, r_a, label="Ridge (L2)")
