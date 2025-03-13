@@ -1,8 +1,10 @@
 import pandas as pd
-from sklearn.metrics import mean_squared_error, accuracy_score
+from sklearn.metrics import mean_squared_error, accuracy_score, r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeRegressor, DecisionTreeClassifier
+
+
 
 def load_data():
     data = pd.read_csv("../simulated_data_multiple_linear_regression_for_ML.csv")
@@ -21,7 +23,7 @@ def train_regression_tree(X_train, X_test, y_train, y_test):
     model = DecisionTreeRegressor()
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)
-    mse = mean_squared_error(y_test, y_pred)
+    mse = r2_score(y_test, y_pred)
     print(f"Mean Squared Error: {mse}")
 
 def train_classification_tree(X_train, X_test, y_train, y_test):
@@ -50,8 +52,9 @@ def main():
     # Exercise 2 - Regression Decision tree
     X,y=load_data()
     X_Train, X_Test, y_Train, y_Test = train_test_split(X, y, test_size=0.30, random_state=999)
-    print("Mean squared error for Decision tree regressor:")
+    print("R2 score for Decision tree regressor:")
     train_regression_tree(X_Train,X_Test,y_Train,y_Test)
+
 
     # Exercise 3 - Classification Decsion Tree
     X1,y1=load_data2()
