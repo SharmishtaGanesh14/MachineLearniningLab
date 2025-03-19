@@ -2,11 +2,14 @@ from collections import Counter
 
 import numpy as np
 import random
+
+from sklearn.datasets import load_iris
 from sklearn.metrics import r2_score, accuracy_score
 from sklearn.model_selection import train_test_split
 
 from Lab12.Ex12 import load_data, Decision_tree_regression_fromscratch, predict
 from Lab10and11.Ex10_11 import load_data2, decision_tree_classifier_from_scratch
+from Lab13.Bagging_SciKit import Data_processing_reg, Data_processing_class
 
 
 def Bagging(X, y, bags=10, task='regression'):
@@ -55,8 +58,15 @@ def aggregate(X_test, models, task='regression'):
 
 def main():
     # Regression
-    X, y = load_data()
+    # X, y = load_data()
+    from sklearn.datasets import load_diabetes
+    import pandas as pd
+    data=load_diabetes()
+    X=pd.DataFrame(data.data)
+    y=pd.Series(data.target)
+
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=222)
+    X_train, X_test, y_train, y_test = Data_processing_reg(X_train, X_test, y_train, y_test)
 
     # Bagging for Regression
     models_reg = Bagging(X_train, y_train, bags=10, task='regression')
@@ -65,9 +75,14 @@ def main():
     print(f"R² Score (Regression): {r2:.4f}")
 
     # Classification
-    X_class, y_class = load_data2()
+    # X_class, y_class = load_data2()
+    import pandas as pd
+    data=load_iris()
+    X_class=pd.DataFrame(data.data)
+    y_class=pd.Series(data.target)
     X_train_class, X_test_class, y_train_class, y_test_class = train_test_split(X_class, y_class, test_size=0.30,
                                                                                 random_state=222)
+    X_train_class, X_test_class, y_train_class, y_test_class = Data_processing_class(X_train_class, X_test_class, y_train_class, y_test_class)
 
     # Bagging for Classification
     models_class = Bagging(X_train_class, y_train_class, bags=10, task='classification')
