@@ -44,7 +44,29 @@ def train_and_evaluate(X, y):
 
 
 def plot_pca(X_pca, y_labels):
-    y_numeric = y_labels.cat.codes  # Convert categories to numeric codes
+    # y_numeric = y_labels.cat.codes  # Convert categories to numeric codes
+    # categories = y_labels.cat.categories
+
+    # plt.figure(figsize=(8, 6))
+    # scatter = plt.scatter(
+    #     X_pca[:, 0], X_pca[:, 1], c=y_numeric, cmap='rainbow', edgecolor='k', alpha=0.8
+    # )
+
+    # # Create custom legend
+    # handles = [
+    #     plt.Line2D([], [], marker='o', linestyle='', color=scatter.cmap(scatter.norm(i)),
+    #                label=cat, markersize=8)
+    #     for i, cat in enumerate(categories)
+    # ]
+    # plt.legend(handles=handles, title="Cancer Types", bbox_to_anchor=(1.05, 1), loc='upper left')
+    # plt.title("PCA - NCI60 Gene Expression (PC1 vs PC2)")
+    # plt.xlabel("Principal Component 1")
+    # plt.ylabel("Principal Component 2")
+    # plt.grid(True)
+    # plt.tight_layout()
+    # plt.show()
+
+        y_numeric = y_labels.cat.codes  # Convert categories to numeric codes
     categories = y_labels.cat.categories
 
     plt.figure(figsize=(8, 6))
@@ -62,6 +84,24 @@ def plot_pca(X_pca, y_labels):
     plt.title("PCA - NCI60 Gene Expression (PC1 vs PC2)")
     plt.xlabel("Principal Component 1")
     plt.ylabel("Principal Component 2")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+
+    y_numeric = y_labels.cat.codes
+    categories = y_labels.cat.categories
+
+    plt.figure(figsize=(8, 6))
+
+    for i, category in enumerate(categories):
+        idx = y_numeric == i
+        plt.scatter(X_pca[idx, 0], X_pca[idx, 1],
+                    label=category, alpha=0.8, edgecolor='k')
+
+    plt.title("PCA - NCI60 Gene Expression (PC1 vs PC2)")
+    plt.xlabel("PC1")
+    plt.ylabel("PC2")
+    plt.legend(title="Cancer Types", bbox_to_anchor=(1.05, 1), loc='upper left')
     plt.grid(True)
     plt.tight_layout()
     plt.show()
