@@ -66,7 +66,7 @@ def plot_pca(X_pca, y_labels):
     # plt.tight_layout()
     # plt.show()
 
-        y_numeric = y_labels.cat.codes  # Convert categories to numeric codes
+    y_numeric = y_labels.cat.codes  # Convert categories to numeric codes
     categories = y_labels.cat.categories
 
     plt.figure(figsize=(8, 6))
